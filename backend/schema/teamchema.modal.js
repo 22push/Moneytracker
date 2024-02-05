@@ -9,9 +9,18 @@ const Teammodel = new Schema({
     type: "String",
     required: [true, "kjbnijno"]
   },
-  user:{
+  discription:{
+    type: "String",
+    required: true,
+  },
+  createdby:{
+    required: true,
     type: Schema.Types.ObjectId,
     ref:"user",
+  },
+  users:{
+    type : "array",
+    default:[],
   }
 },
 {
@@ -31,7 +40,9 @@ Teammodel.pre("save", async function (next) {
   
     next();
   });
-
+Teammodel.methods.addmember = function(userid){
+    this.users.push(userid);
+}
 const Teams = mongoose.model("team", Teammodel);
 
 module.exports = Teams;

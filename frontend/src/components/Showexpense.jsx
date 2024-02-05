@@ -1,68 +1,96 @@
-import React, { useState } from 'react';
-import styles from './showexpensesStyles.module.css'; // Import your modular CSS file for styling
-import Addexpenses from './addexpenses'
+import React, { useState, useEffect } from 'react';
+import styles from './showexpensesStyles.module.css';
+import Addexpenses from './addexpenses';
 import Addmoney from './addmoney';
+import axios from 'axios';
+
 const Showexpenses = () => {
-    const [showaddexpenses, setshowaddexpenses] = useState(false);
-    const [showaddmoney, setshowaddmoney] = useState(false);
-    function Addyourexpenses() {
-        setshowaddexpenses(true);
-        setshowaddmoney(false);
+  const userid = localStorage.getItem('userid');
+  const [showaddexpenses, setshowaddexpenses] = useState(false);
+  const [showaddmoney, setshowaddmoney] = useState(false);
+  const [items, setItems] = useState([]);
+  let totalamount = 0;
+
+  function Addyourexpenses() {
+    setshowaddexpenses(true);
+    setshowaddmoney(false);
+  }
+
+  function Addyourmoney() {
+    setshowaddmoney(true);
+    setshowaddexpenses(false);
+  }
+
+  const totalexpense = (array) => {
+
+  
+    for (let index = 0; index < array.length; index++) {
+        if(array[index].amount===''){
+            array[index].amount = 0;
+        }
+      const amount = parseFloat(array[index].amount);
+      totalamount += amount;
     }
-    function Addyourmoney() {
-        setshowaddmoney(true);
-        setshowaddexpenses(false);
-    }
-    const items = [
-        { id: 1, Amount: 3231, Amountfor: "dsfcxcvcx", Place: "qwedfcx", Date: "2024-01-18" },
-        { id: 2, Amount: 3231, Amountfor: "dsfcxcvcx", Place: "qwedfcx", Date: "2024-01-18" },
-        { id: 3, Amount: 3231, Amountfor: "dsfcxcvcx", Place: "qwedfcx", Date: "2024-01-18" },
-        { id: 4, Amount: 3231, Amountfor: "dsfcxcvcx", Place: "qwedfcx", Date: "2024-01-18" },
-        { id: 4, Amount: 3231, Amountfor: "dsfcxcvcx", Place: "qwedfcx", Date: "2024-01-18" },
-    ];
-    let totalalamount = 0;
-    for (let index = 0; index < items.length; index++) {
-        totalalamount += items[index].Amount;
-    }
-    console.log(totalalamount)
-    return (
-        <>
-            {/* <button onClick={Addexpenses}>Add Expenses</button> */}
-            <button className={styles.customButton}onClick={Addyourexpenses} >Add Expenses</button>
-            {showaddexpenses ? <Addexpenses /> : ''}
-            {showaddmoney ? <Addmoney /> : ''}
-            <div className={styles.tableContainer}>
-                <h2 className={styles.heading}>Your Expenses</h2>
-                <table className={styles.table}>
-                    <thead>
-                        <tr>
-                            <th>S.No.</th>
-                            <th>Amount</th>
-                            <th>Amount for</th>
-                            <th>Place</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {items.map((item) => (
-                            <tr key={item.id}>
-                                <td>{item.id}</td>
-                                <td>Rs {item.Amount}</td>
-                                <td>{item.Amountfor}</td>
-                                <td>{item.Place}</td>
-                                <td>{item.Date}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-                <h2>Total amount :- {totalalamount}</h2>
-                <div>
-                <button className={styles.customButton}>Delete all Expenses</button>
-            <button className={styles.customButton}onClick={Addyourmoney}>Add Money</button>
-                </div>
-            </div>
-        </>
-    );
+  
+    return totalamount;
+  };
+  
+
+  useEffect(() => {
+    const fetchdata = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/user/${userid}`);
+        setItems(response.data.userdata.expenses);
+        console.log(response.data.userdata.expenses);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchdata();
+  }, []);
+
+  return (
+    <>
+      <button className={styles.customButton} onClick={Addyourexpenses}>
+        Add Expenses
+      </button>
+      {showaddexpenses ? <Addexpenses /> : ''}
+      {showaddmoney ? <Addmoney /> : ''}
+      <div className={styles.tableContainer}>
+        <h2 className={styles.heading}>Your Expenses</h2>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>S.No.</th>
+              <th>Amount</th>
+              <th>Amount for</th>
+              <th>Place</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.map((item, index) => (
+              <tr key={item.expenseId}>
+                <td>{index + 1}</td>
+                <td>Rs {item.amount}</td>
+                <td>{item.amountfor}</td>
+                <td>{item.place}</td>
+                <td>{item.date}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <h2 className={styles.totalamount}>Total amount :- {totalexpense(items)}</h2>
+        <div>
+          <button className={styles.customButton}>Delete all Expenses</button>
+          <button className={styles.customButton} onClick={Addyourmoney}>
+            Add Money
+          </button>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default Showexpenses;

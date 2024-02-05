@@ -42,3 +42,7 @@
   .customButton:hover {
     background-color: #bd9a0f;
   }
+  .totalamount{
+    color: #000000;
+    margin-top: 1rem;
+  }
