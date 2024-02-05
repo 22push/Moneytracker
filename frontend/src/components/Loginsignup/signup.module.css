@@ -1,0 +1,66 @@
+/* signupPage.module.css */
+
+.container {
+    display: flex;
+    height: 90vh;
+  }
+  
+  .imageContainer {
+    flex: 1;
+    background-color: #cbc690; /* Set a background color or image for the image container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .imageContainer img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  .signupContainer1{
+    background-color: #f0eaca;
+    padding: 3rem;
+    border-radius: 2rem;
+  }
+  .signupContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: aqua;
+    background-color: #c2bda1; 
+  }
+  .signupContainer h2{
+    color: #461414;
+  }
+  .signupContainer form {
+    width: 100%;
+    max-width: 300px;
+    color: aqua; 
+  }
+  .signupContainer form label {
+    color: rgb(0, 0, 0); 
+  }
+  
+  .signupContainer h2 {
+    margin-bottom: 10px;
+    color: #461414;
+  }
+  .customButton {
+    padding: 15px 30px;
+    margin-top: 1rem;
+    font-size: 20px;
+    border: none;
+    background-color: #5b5a2d;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .customButton:hover {
+    background-color: #bd9a0f;
+  }
+  

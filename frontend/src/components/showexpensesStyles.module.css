@@ -1,0 +1,44 @@
+/* TableStyles.module.css */
+
+.tableContainer {
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 5%;
+  }
+  .heading{
+    text-align: center;
+    color: black;
+  }
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  th, td {
+    border: 1px solid #000000;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #704b01;
+  }
+  td {
+    color: black;
+  }
+  .customButton {
+    padding: 10px 20px;
+   margin: 1rem;
+    font-size: 15px;
+    border: none;
+    background-color: #5b5a2d;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .customButton:hover {
+    background-color: #bd9a0f;
+  }

@@ -1,0 +1,39 @@
+/* FloatingLabelInput.css */
+
+.floating-label-input {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  label {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    color: #280505;
+    font-size: 16px;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease-in-out, font-size 0.3s ease-in-out, color 0.3s ease-in-out;
+    pointer-events: none;
+  }
+  
+  .floating-label-input.focused label {
+    transform: translateY(-90%) scale(0.8);
+    font-size: 14px;
+    color: #333;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #631111;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease-in-out;
+    margin-top: 20px; 
+    color: #631111;
+  }
+  
+  .floating-label-input.focused input {
+    border-color: #333;
+  }
+  
